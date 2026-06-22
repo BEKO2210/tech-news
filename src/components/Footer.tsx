@@ -44,20 +44,28 @@ export function Footer() {
           </h3>
           <ul className="mt-4 space-y-2">
             <li>
+              <Link href="/about" className="text-sm text-ink-mid transition-colors hover:text-flux-cyan">
+                {t("about")}
+              </Link>
+            </li>
+            <li>
               <a
-                href="https://github.com/BEKO2210/tech-news"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:belkis.aslani@gmail.com"
                 className="text-sm text-ink-mid transition-colors hover:text-flux-cyan"
               >
-                {t("about")}
+                {t("contact")}
               </a>
             </li>
-            {(["contact", "imprint", "privacy"] as const).map((k) => (
-              <li key={k}>
-                <span className="text-sm text-ink-dim">{t(k)}</span>
-              </li>
-            ))}
+            <li>
+              <Link href="/impressum" className="text-sm text-ink-mid transition-colors hover:text-flux-cyan">
+                {t("imprint")}
+              </Link>
+            </li>
+            <li>
+              <Link href="/datenschutz" className="text-sm text-ink-mid transition-colors hover:text-flux-cyan">
+                {t("privacy")}
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
