@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ArticleCard } from "./ArticleCard";
+import { usePrefs } from "./personalization/PrefsProvider";
 import { CATEGORY_KEYS, CATEGORY_ACCENT, type Article, type CategoryKey } from "@/lib/types";
 
 const PAGE = 9;
@@ -18,12 +19,13 @@ export function Feed({
   const t = useTranslations("feed");
   const tc = useTranslations("categories");
   const reduce = useReducedMotion();
+  const { prefs } = usePrefs();
   const [active, setActive] = useState<CategoryKey | "all">("all");
   const [visible, setVisible] = useState(12);
   const query = initialQuery.toLowerCase();
 
   const filtered = useMemo(() => {
-    return articles.filter((a) => {
+    const list = articles.filter((a) => {
       const catOk = active === "all" || a.category === active;
       const qOk =
         !query ||
@@ -32,7 +34,16 @@ export function Feed({
         a.source.toLowerCase().includes(query);
       return catOk && qOk;
     });
-  }, [articles, active, query]);
+    // Personalized ordering: surface the user's favourite topics first
+    // (stable sort keeps recency within each group).
+    if (active === "all" && prefs.topics.length) {
+      const fav = new Set(prefs.topics);
+      return [...list].sort(
+        (a, b) => (fav.has(b.category) ? 1 : 0) - (fav.has(a.category) ? 1 : 0),
+      );
+    }
+    return list;
+  }, [articles, active, query, prefs.topics]);
 
   const shown = filtered.slice(0, visible);
 

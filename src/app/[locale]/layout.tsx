@@ -7,6 +7,8 @@ import { routing } from "@/i18n/routing";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Ticker } from "@/components/Ticker";
+import { PrefsProvider } from "@/components/personalization/PrefsProvider";
+import { OnboardingModal } from "@/components/personalization/OnboardingModal";
 import { getArticles, trending } from "@/lib/feeds";
 import "../globals.css";
 
@@ -74,10 +76,13 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col antialiased">
         <NextIntlClientProvider>
-          <Navbar />
-          <Ticker items={tickerItems} />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <PrefsProvider>
+            <Navbar />
+            <Ticker items={tickerItems} />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <OnboardingModal />
+          </PrefsProvider>
         </NextIntlClientProvider>
       </body>
     </html>

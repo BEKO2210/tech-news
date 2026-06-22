@@ -1,8 +1,16 @@
 import { NextResponse } from "next/server";
+import {
+  buildSummaryInstruction,
+  lengthTokens,
+  prefsKey,
+  type Tone,
+  type Length,
+  type Level,
+} from "@/lib/prefs";
 
 export const runtime = "nodejs";
 
-// Warm-instance cache so we don't re-summarize the same article repeatedly.
+// Warm-instance cache so we don't re-summarize the same article+prefs repeatedly.
 const cache = new Map<string, string>();
 
 interface Body {
@@ -11,6 +19,7 @@ interface Body {
   summary: string;
   link?: string;
   locale: "de" | "en";
+  prefs?: { tone: Tone; length: Length; level: Level };
 }
 
 export async function POST(req: Request) {
@@ -22,6 +31,11 @@ export async function POST(req: Request) {
   }
 
   const { id, title, summary, locale } = body;
+  const prefs = {
+    tone: body.prefs?.tone ?? "neutral",
+    length: body.prefs?.length ?? "medium",
+    level: body.prefs?.level ?? "beginner",
+  };
   const fallback = summary?.slice(0, 400) || "";
 
   const apiKey = process.env.LLM_API_KEY;
@@ -33,7 +47,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ summary: fallback, ai: false });
   }
 
-  const cacheKey = `${locale}:${id}`;
+  const cacheKey = `${locale}:${id}:${prefsKey(prefs)}`;
   if (cache.has(cacheKey)) {
     return NextResponse.json({ summary: cache.get(cacheKey), ai: true });
   }
@@ -46,17 +60,11 @@ export async function POST(req: Request) {
 
     const payload: Record<string, unknown> = {
       model,
-      temperature: 0.3,
-      max_tokens: 512,
+      temperature: 0.35,
+      max_tokens: lengthTokens(prefs.length),
       messages: [
-        {
-          role: "system",
-          content: `You are a sharp tech-news editor for FLUX. Write a punchy TL;DR of 2-3 sentences in ${lang}. Be factual, no hype, no preamble, no markdown, no reasoning. Output only the summary.`,
-        },
-        {
-          role: "user",
-          content: `Headline: ${title}\n\nExcerpt: ${summary}`,
-        },
+        { role: "system", content: buildSummaryInstruction(prefs, lang) },
+        { role: "user", content: `Headline: ${title}\n\nExcerpt: ${summary}` },
       ],
     };
 
@@ -86,7 +94,7 @@ export async function POST(req: Request) {
     // Strip any leaked <think>…</think> reasoning blocks.
     const out = raw.replace(/<think>[\s\S]*?<\/think>/gi, "").trim() || fallback;
     cache.set(cacheKey, out);
-    return NextResponse.json({ summary: out, ai: Boolean(out && out !== fallback) || raw.length > 0 });
+    return NextResponse.json({ summary: out, ai: raw.length > 0 });
   } catch {
     return NextResponse.json({ summary: fallback, ai: false });
   }

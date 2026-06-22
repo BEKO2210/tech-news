@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { usePrefs } from "./personalization/PrefsProvider";
 
 export function Tldr({
   id,
@@ -16,17 +17,26 @@ export function Tldr({
 }) {
   const t = useTranslations("article");
   const locale = useLocale();
+  const { prefs, ready } = usePrefs();
   const [text, setText] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [ai, setAi] = useState(false);
 
   useEffect(() => {
+    if (!ready) return;
     let cancelled = false;
     setLoading(true);
     fetch("/api/summarize", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, title, summary, link, locale }),
+      body: JSON.stringify({
+        id,
+        title,
+        summary,
+        link,
+        locale,
+        prefs: { tone: prefs.tone, length: prefs.length, level: prefs.level },
+      }),
     })
       .then((r) => r.json())
       .then((d) => {
@@ -39,7 +49,7 @@ export function Tldr({
     return () => {
       cancelled = true;
     };
-  }, [id, title, summary, link, locale]);
+  }, [id, title, summary, link, locale, ready, prefs.tone, prefs.length, prefs.level]);
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-flux-violet/30 bg-flux-violet/5 p-5 sm:p-6">

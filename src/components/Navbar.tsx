@@ -5,11 +5,14 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { Logo } from "./Logo";
 import { LanguageToggle } from "./LanguageToggle";
+import { usePrefs } from "./personalization/PrefsProvider";
 import { CATEGORY_KEYS, CATEGORY_ACCENT } from "@/lib/types";
 
 export function Navbar() {
   const t = useTranslations("nav");
   const tc = useTranslations("categories");
+  const to = useTranslations("onboarding");
+  const { setOpen: openPrefs } = usePrefs();
   const router = useRouter();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -128,6 +131,14 @@ export function Navbar() {
               <SearchIcon />
               <span className="hidden font-mono text-xs xl:inline">⌘K</span>
             </button>
+            <button
+              onClick={() => openPrefs(true)}
+              aria-label={to("reopen")}
+              title={to("reopen")}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface/50 text-ink-mid transition-colors hover:border-flux-cyan/50 hover:text-flux-cyan"
+            >
+              <SlidersIcon />
+            </button>
             <LanguageToggle />
             <button
               onClick={() => setMenuOpen((v) => !v)}
@@ -202,6 +213,16 @@ function SearchIcon({ className = "" }: { className?: string }) {
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className={className}>
       <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
       <path d="M21 21l-4.3-4.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+function SlidersIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+      <path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h7M15 18h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="16" cy="6" r="2" fill="currentColor" />
+      <circle cx="8" cy="12" r="2" fill="currentColor" />
+      <circle cx="13" cy="18" r="2" fill="currentColor" />
     </svg>
   );
 }
