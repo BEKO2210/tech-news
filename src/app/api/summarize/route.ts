@@ -42,7 +42,29 @@ export async function POST(req: Request) {
 
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 12000);
+    const timeout = setTimeout(() => controller.abort(), 20000);
+
+    const payload: Record<string, unknown> = {
+      model,
+      temperature: 0.3,
+      max_tokens: 512,
+      messages: [
+        {
+          role: "system",
+          content: `You are a sharp tech-news editor for FLUX. Write a punchy TL;DR of 2-3 sentences in ${lang}. Be factual, no hype, no preamble, no markdown, no reasoning. Output only the summary.`,
+        },
+        {
+          role: "user",
+          content: `Headline: ${title}\n\nExcerpt: ${summary}`,
+        },
+      ],
+    };
+
+    // NVIDIA NIM / Nemotron are reasoning models — disable thinking so the
+    // short TL;DR lands in `content` instead of being eaten by reasoning.
+    if (/nvidia|nemotron|integrate\.api/i.test(`${baseUrl} ${model}`)) {
+      payload.chat_template_kwargs = { enable_thinking: false };
+    }
 
     const res = await fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
@@ -51,21 +73,7 @@ export async function POST(req: Request) {
         Authorization: `Bearer ${apiKey}`,
       },
       signal: controller.signal,
-      body: JSON.stringify({
-        model,
-        temperature: 0.3,
-        max_tokens: 200,
-        messages: [
-          {
-            role: "system",
-            content: `You are a sharp tech-news editor for FLUX. Write a punchy TL;DR of 2-3 sentences in ${lang}. Be factual, no hype, no preamble, no markdown. Only output the summary.`,
-          },
-          {
-            role: "user",
-            content: `Headline: ${title}\n\nExcerpt: ${summary}`,
-          },
-        ],
-      }),
+      body: JSON.stringify(payload),
     });
     clearTimeout(timeout);
 
@@ -73,10 +81,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ summary: fallback, ai: false });
     }
     const data = await res.json();
-    const out: string =
-      data?.choices?.[0]?.message?.content?.trim() || fallback;
+    const raw: string = data?.choices?.[0]?.message?.content?.trim() || "";
+    // Strip any leaked <think>…</think> reasoning blocks.
+    const out = raw.replace(/<think>[\s\S]*?<\/think>/gi, "").trim() || fallback;
     cache.set(cacheKey, out);
-    return NextResponse.json({ summary: out, ai: true });
+    return NextResponse.json({ summary: out, ai: Boolean(out && out !== fallback) || raw.length > 0 });
   } catch {
     return NextResponse.json({ summary: fallback, ai: false });
   }
