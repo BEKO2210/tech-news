@@ -12,7 +12,7 @@ A spectacular, bilingual (DE/EN) tech-news platform that **auto-aggregates** the
 - **Bilingual** — full DE/EN i18n with a language toggle; locale-aware feeds.
 - **AI TL;DR** — per-article summaries via any OpenAI-compatible LLM (Kimi/Moonshot, OpenAI, …). Falls back gracefully to the source excerpt when no key is set.
 - **Auto-categorization** — keyword engine sorts articles into AI, Hardware, Software, Space, Science, Gaming, Crypto, Security, Business, Mobile.
-- **Self-refreshing** — ISR (15 min) + Vercel Cron force-refresh every 30 min. Set & forget.
+- **Self-refreshing** — ISR (15 min) + Vercel Cron force-refresh daily (Hobby tier; ISR keeps content fresh every 15 min regardless). Set & forget.
 - **Spectacular UI** — glass navbar, live ticker, bento hero, trending rail, scroll-reveal stagger, magnetic CTAs, ⌘K search, reading-progress bar, save/share.
 - **Robust** — per-source error isolation, charset auto-detection (ISO-8859-1/UTF-8), ad/sponsored filtering, image extraction with gradient fallback.
 
@@ -55,7 +55,7 @@ See [`.env.example`](./.env.example). All optional — the site runs without any
 1. Push this repo to GitHub.
 2. Import it on [vercel.com/new](https://vercel.com/new).
 3. (Optional) add the env vars above.
-4. Deploy. The cron (`vercel.json`) auto-refreshes feeds every 30 min.
+4. Deploy. The cron (`vercel.json`) auto-refreshes feeds daily (Hobby tier; ISR keeps content fresh every 15 min regardless).
 
 ## 🧱 Architecture
 
