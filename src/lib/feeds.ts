@@ -108,6 +108,21 @@ function stripHtml(html: string): string {
     .trim();
 }
 
+/** Trim to a clean sentence/word boundary instead of cutting mid-word. */
+function excerpt(html: string, max = 460): string {
+  const t = stripHtml(html);
+  if (t.length <= max) return t;
+  const slice = t.slice(0, max);
+  const sentenceEnd = Math.max(
+    slice.lastIndexOf(". "),
+    slice.lastIndexOf("! "),
+    slice.lastIndexOf("? "),
+  );
+  if (sentenceEnd > max * 0.55) return slice.slice(0, sentenceEnd + 1);
+  const wordEnd = slice.lastIndexOf(" ");
+  return (wordEnd > 0 ? slice.slice(0, wordEnd) : slice).trim() + "…";
+}
+
 function extractImage(item: FeedItem): string | undefined {
   if (item.enclosure?.url && /^https/.test(item.enclosure.url) && (!item.enclosure.type || item.enclosure.type.startsWith("image"))) {
     return item.enclosure.url;
@@ -186,7 +201,7 @@ async function fetchSource(source: Source): Promise<Article[]> {
       .slice(0, 25)
       .map((it): Article => {
         const rawSummary = it.contentSnippet || it.content || it.contentEncoded || "";
-        const summary = stripHtml(rawSummary).slice(0, 320);
+        const summary = excerpt(rawSummary);
         const title = stripHtml(it.title || "");
         const published = it.isoDate || it.pubDate || new Date(0).toISOString();
         return {

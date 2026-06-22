@@ -46,7 +46,8 @@ export function buildSummaryInstruction(
     tone[p.tone],
     length[p.length],
     level[p.level],
-    "Stay strictly grounded in the provided text — invent nothing. No preamble, no markdown, no reasoning. Output only the summary.",
+    "Stay strictly grounded in the provided text — invent nothing.",
+    "Output ONLY the summary text: never begin with a preamble like \"Here is\"/\"Hier ist\", no heading, no markdown, no asterisks, no bullet points, no reasoning. Finish your sentences — never cut off mid-word.",
   ].join(" ");
 }
 

@@ -9,6 +9,7 @@ import {
 } from "@/lib/prefs";
 
 export const runtime = "nodejs";
+export const maxDuration = 30;
 
 // Warm-instance cache so we don't re-summarize the same article+prefs repeatedly.
 const cache = new Map<string, string>();
@@ -91,10 +92,19 @@ export async function POST(req: Request) {
     }
     const data = await res.json();
     const raw: string = data?.choices?.[0]?.message?.content?.trim() || "";
-    // Strip any leaked <think>…</think> reasoning blocks.
-    const out = raw.replace(/<think>[\s\S]*?<\/think>/gi, "").trim() || fallback;
+    // Clean up: strip reasoning blocks, markdown, and any leading preamble.
+    let out = raw
+      .replace(/<think>[\s\S]*?<\/think>/gi, "")
+      .replace(/\*\*/g, "")
+      .replace(/^#+\s*/gm, "")
+      .trim();
+    out = out
+      .replace(/^\s*(hier ist|here is|here'?s|tl;?dr|zusammenfassung)[^\n:]*:\s*/i, "")
+      .replace(/^["“„]|["”]$/g, "")
+      .trim();
+    if (!out) out = fallback;
     cache.set(cacheKey, out);
-    return NextResponse.json({ summary: out, ai: raw.length > 0 });
+    return NextResponse.json({ summary: out, ai: out !== fallback });
   } catch {
     return NextResponse.json({ summary: fallback, ai: false });
   }
