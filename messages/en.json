@@ -78,6 +78,29 @@
     "builtWith": "Built with AI — auto-curated.",
     "rights": "All rights reserved."
   },
+  "pipeline": {
+    "eyebrow": "How it works",
+    "title": "Intelligence",
+    "titleAccent": "in Action",
+    "subtitle": "FLUX aggregates, summarizes and curates — fully automatically. Watch the AI pipeline in real time.",
+    "liveResult": "Live result",
+    "copy": "Copy",
+    "copied": "Copied",
+    "steps": {
+      "aggregate": {
+        "title": "Aggregate",
+        "desc": "Pulls real-time articles from 13+ top tech sources via RSS."
+      },
+      "summarize": {
+        "title": "Summarize",
+        "desc": "AI distills each story into a punchy TL;DR — in your language."
+      },
+      "curate": {
+        "title": "Curate",
+        "desc": "Auto-categorizes, dedupes and ranks by recency and relevance."
+      }
+    }
+  },
   "time": {
     "now": "just now",
     "minutesAgo": "{count}m ago",

@@ -78,6 +78,29 @@
     "builtWith": "Gebaut mit KI — automatisch kuratiert.",
     "rights": "Alle Rechte vorbehalten."
   },
+  "pipeline": {
+    "eyebrow": "Wie es funktioniert",
+    "title": "Intelligenz",
+    "titleAccent": "in Aktion",
+    "subtitle": "FLUX aggregiert, fasst zusammen und kuratiert — vollautomatisch. Sieh dir die KI-Pipeline in Echtzeit an.",
+    "liveResult": "Live-Ergebnis",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "steps": {
+      "aggregate": {
+        "title": "Aggregieren",
+        "desc": "Zieht in Echtzeit Artikel aus 13+ Top-Tech-Quellen per RSS."
+      },
+      "summarize": {
+        "title": "Zusammenfassen",
+        "desc": "KI destilliert jede Story in eine knackige TL;DR — in deiner Sprache."
+      },
+      "curate": {
+        "title": "Kuratieren",
+        "desc": "Kategorisiert automatisch, entfernt Duplikate und rankt nach Aktualität."
+      }
+    }
+  },
   "time": {
     "now": "gerade eben",
     "minutesAgo": "vor {count} Min.",
