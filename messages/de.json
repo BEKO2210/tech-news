@@ -1,0 +1,91 @@
+{
+  "brand": {
+    "tagline": "Technik. Vor allen anderen.",
+    "name": "FLUX"
+  },
+  "nav": {
+    "home": "Start",
+    "latest": "Aktuell",
+    "trending": "Trending",
+    "categories": "Kategorien",
+    "search": "Suchen",
+    "searchPlaceholder": "Suche nach Themen, Quellen, KI …",
+    "menu": "Menü",
+    "close": "Schließen",
+    "switchToEn": "EN",
+    "switchToDe": "DE",
+    "live": "LIVE"
+  },
+  "categories": {
+    "all": "Alle",
+    "ai": "Künstliche Intelligenz",
+    "hardware": "Hardware",
+    "software": "Software",
+    "space": "Raumfahrt",
+    "science": "Wissenschaft",
+    "gaming": "Gaming",
+    "crypto": "Krypto",
+    "security": "Security",
+    "business": "Business",
+    "mobile": "Mobile"
+  },
+  "hero": {
+    "eyebrow": "Im Brennpunkt",
+    "breaking": "BREAKING",
+    "readStory": "Story lesen",
+    "topStories": "Top-Stories",
+    "live": "Live-Feed"
+  },
+  "feed": {
+    "latestHeadline": "Frisch reingekommen",
+    "latestSub": "Die neuesten Tech-News aus den besten Quellen weltweit — automatisch aggregiert, KI-kuratiert.",
+    "trendingNow": "Gerade angesagt",
+    "loadMore": "Mehr laden",
+    "loading": "Lade …",
+    "noResults": "Keine Artikel gefunden.",
+    "minRead": "Min. Lesezeit",
+    "source": "Quelle",
+    "updated": "Aktualisiert"
+  },
+  "article": {
+    "tldr": "KI-Kurzfassung",
+    "tldrGenerating": "KI fasst zusammen …",
+    "readOriginal": "Original lesen",
+    "share": "Teilen",
+    "save": "Merken",
+    "saved": "Gemerkt",
+    "related": "Das könnte dich auch interessieren",
+    "backToFeed": "Zurück zum Feed",
+    "publishedBy": "Veröffentlicht von",
+    "readingProgress": "Lesefortschritt"
+  },
+  "newsletter": {
+    "title": "Bleib am Puls der Technik",
+    "subtitle": "Ein Briefing pro Tag. Nur das, was wirklich zählt. Kein Spam.",
+    "placeholder": "deine@email.de",
+    "cta": "Abonnieren",
+    "success": "Willkommen an Bord! 🚀",
+    "consent": "Mit dem Abo stimmst du unseren Datenschutzbestimmungen zu."
+  },
+  "footer": {
+    "tagline": "Die Tech-News-Plattform am Puls der Zeit.",
+    "sections": "Bereiche",
+    "company": "Über",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "builtWith": "Gebaut mit KI — automatisch kuratiert.",
+    "rights": "Alle Rechte vorbehalten."
+  },
+  "time": {
+    "now": "gerade eben",
+    "minutesAgo": "vor {count} Min.",
+    "hoursAgo": "vor {count} Std.",
+    "daysAgo": "vor {count} Tg."
+  },
+  "meta": {
+    "title": "FLUX — Tech-News am Puls der Zeit",
+    "description": "FLUX aggregiert und kuratiert die wichtigsten Tech-News weltweit — KI, Hardware, Raumfahrt, Wissenschaft, Gaming und mehr. Automatisch, aktuell, spektakulär."
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "brand": {
+    "tagline": "Tech at the edge.",
+    "name": "FLUX"
+  },
+  "nav": {
+    "home": "Home",
+    "latest": "Latest",
+    "trending": "Trending",
+    "categories": "Categories",
+    "search": "Search",
+    "searchPlaceholder": "Search topics, sources, AI …",
+    "menu": "Menu",
+    "close": "Close",
+    "switchToEn": "EN",
+    "switchToDe": "DE",
+    "live": "LIVE"
+  },
+  "categories": {
+    "all": "All",
+    "ai": "Artificial Intelligence",
+    "hardware": "Hardware",
+    "software": "Software",
+    "space": "Space",
+    "science": "Science",
+    "gaming": "Gaming",
+    "crypto": "Crypto",
+    "security": "Security",
+    "business": "Business",
+    "mobile": "Mobile"
+  },
+  "hero": {
+    "eyebrow": "In focus",
+    "breaking": "BREAKING",
+    "readStory": "Read story",
+    "topStories": "Top stories",
+    "live": "Live feed"
+  },
+  "feed": {
+    "latestHeadline": "Fresh off the wire",
+    "latestSub": "The latest tech news from the world's best sources — auto-aggregated, AI-curated.",
+    "trendingNow": "Trending now",
+    "loadMore": "Load more",
+    "loading": "Loading …",
+    "noResults": "No articles found.",
+    "minRead": "min read",
+    "source": "Source",
+    "updated": "Updated"
+  },
+  "article": {
+    "tldr": "AI summary",
+    "tldrGenerating": "AI is summarizing …",
+    "readOriginal": "Read original",
+    "share": "Share",
+    "save": "Save",
+    "saved": "Saved",
+    "related": "You might also like",
+    "backToFeed": "Back to feed",
+    "publishedBy": "Published by",
+    "readingProgress": "Reading progress"
+  },
+  "newsletter": {
+    "title": "Stay on the pulse of tech",
+    "subtitle": "One briefing a day. Only what matters. No spam.",
+    "placeholder": "you@email.com",
+    "cta": "Subscribe",
+    "success": "Welcome aboard! 🚀",
+    "consent": "By subscribing you agree to our privacy policy."
+  },
+  "footer": {
+    "tagline": "The tech-news platform on the pulse of time.",
+    "sections": "Sections",
+    "company": "About",
+    "about": "About us",
+    "contact": "Contact",
+    "imprint": "Imprint",
+    "privacy": "Privacy",
+    "builtWith": "Built with AI — auto-curated.",
+    "rights": "All rights reserved."
+  },
+  "time": {
+    "now": "just now",
+    "minutesAgo": "{count}m ago",
+    "hoursAgo": "{count}h ago",
+    "daysAgo": "{count}d ago"
+  },
+  "meta": {
+    "title": "FLUX — Tech news on the pulse of time",
+    "description": "FLUX aggregates and curates the world's most important tech news — AI, hardware, space, science, gaming and more. Automatic, current, spectacular."
+  }
+}
