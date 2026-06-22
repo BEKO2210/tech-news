@@ -60,9 +60,10 @@ export async function POST(req: Request) {
       ],
     };
 
-    // NVIDIA NIM / Nemotron are reasoning models — disable thinking so the
-    // short TL;DR lands in `content` instead of being eaten by reasoning.
-    if (/nvidia|nemotron|integrate\.api/i.test(`${baseUrl} ${model}`)) {
+    // Optional: some reasoning models accept a flag to skip thinking.
+    // Off by default — several Nemotron variants behave WORSE with it
+    // (return null content). Enable only if your model needs it.
+    if (process.env.LLM_DISABLE_THINKING === "true") {
       payload.chat_template_kwargs = { enable_thinking: false };
     }
 
