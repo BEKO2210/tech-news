@@ -26,11 +26,11 @@ export function LogoMark({ className = "" }: { className?: string }) {
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <LogoMark className="h-8 w-8 drop-shadow-[0_0_12px_rgba(79,123,255,0.5)]" />
+    <span className={`group inline-flex items-center gap-2.5 ${className}`}>
+      <LogoMark className="h-8 w-8 animate-logo transition-transform duration-300 group-hover:rotate-[8deg] group-hover:scale-110" />
       <span className="font-display text-xl font-bold tracking-tight">
         <span className="text-ink">FL</span>
-        <span className="text-gradient">UX</span>
+        <span className="logo-gradient">UX</span>
       </span>
     </span>
   );

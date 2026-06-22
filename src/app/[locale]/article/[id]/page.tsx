@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -9,6 +8,7 @@ import { Tldr } from "@/components/Tldr";
 import { ShareSave } from "@/components/ShareSave";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { ArticleCard } from "@/components/ArticleCard";
+import { Thumb } from "@/components/Thumb";
 import { Reveal } from "@/components/Reveal";
 import { getArticleById } from "@/lib/feeds";
 import { CATEGORY_ACCENT } from "@/lib/types";
@@ -87,25 +87,15 @@ export default async function ArticlePage({
         </div>
       </div>
 
-      {article.image && (
-        <div className="mx-auto mt-8 max-w-5xl px-4 sm:px-6">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-3xl border border-line">
-            <Image
-              src={article.image}
-              alt={article.title}
-              fill
-              sizes="(max-width:1024px) 100vw, 1024px"
-              className="object-cover"
-              priority
-              unoptimized
-            />
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{ boxShadow: `inset 0 0 120px ${accent}22` }}
-            />
-          </div>
+      <div className="mx-auto mt-8 max-w-5xl px-4 sm:px-6">
+        <div className="group relative aspect-[16/9] overflow-hidden rounded-3xl border border-line">
+          <Thumb article={article} sizes="(max-width:1024px) 100vw, 1024px" priority />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{ boxShadow: `inset 0 0 120px ${accent}22` }}
+          />
         </div>
-      )}
+      </div>
 
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
         <Tldr id={article.id} title={article.title} summary={article.summary} link={article.link} />

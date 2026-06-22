@@ -1,44 +1,8 @@
-import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { CategoryBadge } from "./CategoryBadge";
 import { TimeAgo } from "./TimeAgo";
-import { CATEGORY_ACCENT, type Article } from "@/lib/types";
-
-function Thumb({
-  article,
-  className = "",
-  sizes,
-}: {
-  article: Article;
-  className?: string;
-  sizes: string;
-}) {
-  const accent = CATEGORY_ACCENT[article.category];
-  if (article.image) {
-    return (
-      <Image
-        src={article.image}
-        alt={article.title}
-        fill
-        sizes={sizes}
-        className={`object-cover transition-transform duration-700 group-hover:scale-105 ${className}`}
-        unoptimized
-      />
-    );
-  }
-  return (
-    <div
-      className={`flex h-full w-full items-center justify-center ${className}`}
-      style={{
-        background: `radial-gradient(circle at 30% 20%, ${accent}33, transparent 60%), linear-gradient(135deg, #0e1320, #141b2d)`,
-      }}
-    >
-      <span className="font-display text-5xl font-black opacity-20" style={{ color: accent }}>
-        {article.source.slice(0, 2).toUpperCase()}
-      </span>
-    </div>
-  );
-}
+import { Thumb } from "./Thumb";
+import type { Article } from "@/lib/types";
 
 interface Props {
   article: Article;
@@ -46,7 +10,7 @@ interface Props {
   priority?: boolean;
 }
 
-export function ArticleCard({ article, variant = "default" }: Props) {
+export function ArticleCard({ article, variant = "default", priority = false }: Props) {
   const href = `/article/${article.id}`;
 
   if (variant === "compact") {
@@ -102,7 +66,7 @@ export function ArticleCard({ article, variant = "default" }: Props) {
         href={href}
         className="group ring-gradient relative flex aspect-[16/10] flex-col justify-end overflow-hidden rounded-3xl border border-line"
       >
-        <Thumb article={article} sizes="(max-width:1024px) 100vw, 66vw" />
+        <Thumb article={article} sizes="(max-width:1024px) 100vw, 66vw" priority={priority} />
         <div className="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-transparent" />
         <div className="relative p-6 sm:p-8">
           <CategoryBadge category={article.category} size="md" />
@@ -131,7 +95,7 @@ export function ArticleCard({ article, variant = "default" }: Props) {
       className="group ring-gradient flex flex-col overflow-hidden rounded-2xl border border-line bg-surface/40 transition-all duration-300 hover:-translate-y-1 hover:bg-surface/70"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
-        <Thumb article={article} sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw" />
+        <Thumb article={article} sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw" priority={priority} />
         <div className="absolute left-3 top-3">
           <CategoryBadge category={article.category} />
         </div>

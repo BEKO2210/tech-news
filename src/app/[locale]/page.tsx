@@ -5,7 +5,6 @@ import { Newsletter } from "@/components/Newsletter";
 import { TrendingRail } from "@/components/TrendingRail";
 import { getArticles, pickFeatured, trending } from "@/lib/feeds";
 import { EmptyState } from "@/components/EmptyState";
-import { IntelligenceSection } from "@/components/ui/intelligence-section";
 
 export const revalidate = 900;
 
@@ -46,8 +45,6 @@ export default async function Home({
       </section>
 
       <Feed articles={rest} initialQuery={q ?? ""} />
-
-      <IntelligenceSection />
 
       <Newsletter />
     </>

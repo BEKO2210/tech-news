@@ -43,11 +43,19 @@ export function Footer() {
             {t("company")}
           </h3>
           <ul className="mt-4 space-y-2">
-            {(["about", "contact", "imprint", "privacy"] as const).map((k) => (
+            <li>
+              <a
+                href="https://github.com/BEKO2210/tech-news"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-ink-mid transition-colors hover:text-flux-cyan"
+              >
+                {t("about")}
+              </a>
+            </li>
+            {(["contact", "imprint", "privacy"] as const).map((k) => (
               <li key={k}>
-                <span className="cursor-pointer text-sm text-ink-mid transition-colors hover:text-flux-cyan">
-                  {t(k)}
-                </span>
+                <span className="text-sm text-ink-dim">{t(k)}</span>
               </li>
             ))}
           </ul>

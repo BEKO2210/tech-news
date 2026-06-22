@@ -190,6 +190,28 @@ body::before {
   }
 }
 
+@keyframes text-flow {
+  to { background-position: 200% center; }
+}
+@keyframes logo-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(124, 255, 178, 0.35)); }
+  50% { filter: drop-shadow(0 0 16px rgba(198, 240, 60, 0.65)); }
+}
+
+@layer utilities {
+  .logo-gradient {
+    background: linear-gradient(110deg, #c6f03c, #7cffb2 50%, #c6f03c);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: text-flow 4s linear infinite;
+  }
+  .animate-logo {
+    animation: logo-pulse 3s ease-in-out infinite;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
